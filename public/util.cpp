@@ -1,0 +1,235 @@
+#include "util.h"
+
+void split(const std::string& src_string, std::vector<std::string>& out_vec, const std::string& sign)
+{
+	auto temp_string = src_string;
+	while (1)
+	{
+		auto pos = temp_string.find(sign);
+		if(pos == std::string::npos)
+		{
+			out_vec.emplace_back(temp_string);
+			break;
+		}
+		auto string_0 = temp_string.substr(0, pos);
+		out_vec.emplace_back(string_0);
+		temp_string = temp_string.substr(pos + 1, temp_string.length());
+	}
+}
+#ifdef LINUX
+int code_convert(char *from_charset,char *to_charset,char *inbuf,int inlen,char *outbuf,int outlen)
+{
+	iconv_t cd;
+	//int rc;
+	char **pin = &inbuf;
+	char **pout = &outbuf;
+
+	cd = iconv_open(to_charset,from_charset);
+	if (cd==0) 
+		return -1;
+
+	memset(outbuf,0,outlen);
+
+	size_t s_in_len = inlen;
+	size_t s_out_len = outlen;
+
+	if (iconv(cd,pin,&s_in_len,pout,&s_out_len)==-1) 
+		return -1;
+
+	iconv_close(cd);
+	return 0;
+}
+#endif
+void UnicodeToUTF_8(char* pOut,wchar_t* pText)
+{
+	// 注意 WCHAR高低字的顺序,低字节在前，高字节在后
+	char* pchar = (char *)pText;
+
+	pOut[0] = (0xE0 | ((pchar[1] & 0xF0) >> 4));
+	pOut[1] = (0x80 | ((pchar[1] & 0x0F) << 2)) + ((pchar[0] & 0xC0) >> 6);
+	pOut[2] = (0x80 | (pchar[0] & 0x3F));
+
+	return;
+}
+
+void UTF_8ToUnicode(wchar_t* pOut,char *pText)
+{
+	char* uchar = (char *)pOut;
+
+	uchar[1] = ((pText[0] & 0x0F) << 4) + ((pText[1] >> 2) & 0x0F);
+	uchar[0] = ((pText[1] & 0x03) << 6) + (pText[2] & 0x3F);
+
+	return;
+}
+
+void Gb2312ToUnicode(wchar_t* pOut,char *gbBuffer)
+{
+#ifdef WIN32	
+	::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,gbBuffer,2,pOut,1);
+#endif
+#ifdef LINUX			
+	code_convert("gbk","utf-8",gbBuffer,sizeof(gbBuffer), (char*)pOut, sizeof(pOut));
+#endif
+}
+
+void UnicodeToGB2312(char* pOut,wchar_t uData)
+{
+#ifdef WIN32		
+	::WideCharToMultiByte(CP_ACP,NULL,&uData,1,pOut,sizeof(wchar_t),NULL,NULL);
+#endif
+#ifdef LINUX
+	code_convert("utf-8","gbk",(char*)uData,sizeof(uData), pOut, sizeof(pOut));
+#endif
+}
+
+void GB2312ToUTF_8(std::string& pOut,char *pText, int pLen)
+{
+	if( 0 == pLen)
+		return;
+
+	char buf[4];
+	int nLength = pLen* 3;
+	char* rst = new char[nLength];
+	memset(buf,0,4);
+	memset(rst,0,nLength);	
+#ifdef WIN32	
+	int i = 0;
+	int j = 0;      
+	while(i < pLen)
+	{
+		//如果是英文直接复制就能
+		if( *(pText + i) >= 0)
+		{
+			rst[j++] = pText[i++];
+		}
+		else
+		{
+			wchar_t pbuffer;
+			Gb2312ToUnicode(&pbuffer,pText+i);
+
+			UnicodeToUTF_8(buf,&pbuffer);
+
+			unsigned short int tmp = 0;
+			tmp = rst[j] = buf[0];
+			tmp = rst[j+1] = buf[1];
+			tmp = rst[j+2] = buf[2];    
+
+			j += 3;
+			i += 2;
+		}
+	}
+	rst[j] = ' ';
+#endif  
+
+#ifdef LINUX
+	code_convert("gbk","utf-8",pText,pLen, rst, nLength);
+#endif
+	pOut = rst;             
+	delete []rst;
+}
+
+void UTF_8ToGB2312(std::string &pOut, char *pText, int pLen)
+{
+	char * newBuf = new char[pLen+1];
+	memset(newBuf, 0, sizeof(char) * (pLen + 1));
+
+	char Ctemp[4];
+	memset(Ctemp,0,4);
+	int j = 0;	
+#ifdef WIN32
+	int i =0;
+
+	while(i < pLen)
+	{
+		if( *(pText + i) >= 0 )
+		{
+			newBuf[j++] = pText[i++];                       
+		}
+		else                 
+		{
+			wchar_t Wtemp;
+			UTF_8ToUnicode(&Wtemp,pText + i);
+
+			UnicodeToGB2312(Ctemp,Wtemp);
+
+			newBuf[j] = Ctemp[0];
+			newBuf[j + 1] = Ctemp[1];
+
+			i += 3;    
+			j += 2;   
+		}
+	}
+#endif  
+
+#ifdef LINUX
+	code_convert("utf-8","gbk",pText,pLen, newBuf, pLen);
+	j = pLen;
+#endif
+	newBuf[j]='\0';
+
+	pOut = newBuf;
+	delete []newBuf;
+}
+
+int stringLength(const std::string& src_string)
+{
+	return stringLength(src_string.c_str(), src_string.length());
+}
+
+int stringLength(const char* str, int len)
+{
+	const char * pChar = str;
+
+	int nlen = 0;
+
+	int value = (int)(*pChar);
+	while ( pChar < str + len )
+	{
+		value = value & 0xff;
+		if ( value <= 0xfd && value >= 0xc0 )
+		{
+			if ( (value & 0xe0 ) == 0xe0 ) 
+			{
+				pChar += 3; 
+				nlen++;
+			}
+			else if ( (value & 0xc0 ) == 0xc0 ) 
+			{
+				pChar += 2;
+				nlen++;
+			}
+		}
+		else 
+		{
+
+			if(value >= 0xa1 && value <= 0xa9)
+			{
+				int value2 = (int)(*(pChar + 1));
+				value2 = value2 & 0xff;
+				if (value2 > 0xa1 && value2 <= 0xef)
+				{
+					pChar += 2;
+					value = (int)(*pChar);
+					nlen++;
+					continue;
+				}
+			}
+			if(value >= 0xb0 && value <= 0xf7)
+			{
+				int value2 = (int)(*(pChar + 1));
+				value2 = value2 & 0xff;
+				if (value2 > 0xa0 && value2 < 0xff)
+				{
+					pChar += 2;
+					value = (int)(*pChar);
+					nlen++;
+					continue;
+				}
+			}
+			pChar++;
+			nlen++;
+		}
+		value = (int)(*pChar);
+	}
+	return nlen;
+}

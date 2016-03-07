@@ -1,0 +1,63 @@
+message client_request_join
+{
+	required int32 account_id = 1;
+	required int32 player_id = 2;
+	required int32 server_id = 3;
+	required bytes auth_key = 4;
+	required int32 channel = 5;
+}
+
+
+message server_join_game_response
+{
+	enum JoinState
+	{
+		AuthError = 0;	//错误
+		JoinGame = 1;	//可以正常进入游戏
+		JoinWait = 2;	//进入排队队列
+	}
+	
+	//排队信息
+	message wait_info
+	{
+		required int32 cur_num = 1;
+		required int32 time = 2;
+	}
+	
+	required JoinState state = 1;
+	optional wait_info wait = 2;
+}
+
+message client_request_player_info
+{
+	enum MsgId
+	{
+		requestPlayerInfo = 2002;
+	}
+	required int32 account_id = 1;
+	required int32 server_id = 2;
+}
+
+message server_response_player_info
+{
+	required int32 player_id = 1[default=0];	//0表示无角色
+}
+
+message client_create_player
+{
+	required int32 account_id = 1;	//账号id
+	required int32 server_id = 2;	//服务器id
+	required string name = 3;		//玩家名
+}
+
+message server_create_player_response
+{
+	enum CreateState
+	{
+		Succeed = 0;	//成功
+		NameRepeated = 1;	//名字重复
+		NameError = 2;	//名字错误(屏蔽字等)
+	}
+	required CreateState state = 1;
+	optional int32 player_id = 2;
+}

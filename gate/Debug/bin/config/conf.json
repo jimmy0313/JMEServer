@@ -1,0 +1,32 @@
+{
+	"base" : {
+		"server_id" : 1,
+		"server_name" : "gate-1",
+		"acceptor" : {
+			"port" : 6001,
+			"buffer_size" : 51200
+		}
+	},
+	"rpc" : {
+		"client" : [
+			{
+				"name" : "account",
+				"buffer_size" : 102400,
+				"ip" : "127.0.0.1",
+				"port" : "2001",
+				"reconnect" : 5
+			},
+			{
+				"name" : "game-1",
+				"buffer_size" : 102400,
+				"ip" : "127.0.0.1",
+				"port" : "2030",
+				"reconnect" : 5
+			}
+		],
+		"server" : {
+			"buffer_size" : 102400,
+			"port" : 2020
+		}
+	}
+}

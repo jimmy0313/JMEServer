@@ -1,0 +1,43 @@
+{
+	"base" : {
+		"server_id" : 1,
+		"server_name" : "account",
+		"max_client" : 3
+	},
+	"rpc" : {
+		"client" : [
+			{
+				"name" : "gate-1",
+				"buffer_size" : 102400,
+				"ip" : "127.0.0.1",
+				"port" : "2020",
+				"reconnect" : 5
+			}
+		],
+		"server" : {
+			"buffer_size" : 102400,
+			"port" : 2001
+		}
+	},
+	"db":{
+		"mongo" : {
+			"world" : {
+				"host" : "127.0.0.1:27017",
+				"user" : "root",
+				"passwd" : "password",
+				"db" : "admin",
+				"num" : 4
+			}
+		},
+		"mysql" : {
+			"account": {
+				"host" : "127.0.0.1",
+				"user" : "root",
+				"passwd" : "password",
+				"db" : "account_db",
+				"port" : 3306,
+				"num" : 4
+			}
+		}
+	}
+}

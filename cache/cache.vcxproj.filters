@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\cache_handler.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\cache_server.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_struct\player.cpp">
+      <Filter>data_struct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\protocol\server_rpc.pb.cc">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\db_manager.cpp">
+      <Filter>public</Filter>
+    </ClCompile>
+    <ClCompile Include="source\data_manager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_struct\hero.cpp">
+      <Filter>data_struct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_struct\weapon.cpp">
+      <Filter>data_struct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_struct\item.cpp">
+      <Filter>data_struct</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{9831dbbf-fec6-4fe6-9ee9-09cca08ae8ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{140f1741-261f-416a-891b-d93ad5f93dc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structure">
+      <UniqueIdentifier>{8ff1285a-2b09-4785-bf7a-106fe2fe8eaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public">
+      <UniqueIdentifier>{b64c0e13-166d-4f03-9714-d1a6fd0e2d00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data_struct">
+      <UniqueIdentifier>{6cdc0487-220f-482e-bb35-af5165cd5105}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\cache_handler.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\cache_server.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_struct\player.h">
+      <Filter>data_struct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\protocol\server_rpc.pb.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\db_manager.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="source\data_manager.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_struct\hero.h">
+      <Filter>data_struct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_struct\weapon.h">
+      <Filter>data_struct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_struct\item.h">
+      <Filter>data_struct</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

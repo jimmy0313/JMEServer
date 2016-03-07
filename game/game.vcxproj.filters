@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\public\util.cpp">
+      <Filter>public</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game_server.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\message_handler.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\db_manager.cpp">
+      <Filter>public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\client.cpp">
+      <Filter>public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\protocol\server_rpc.pb.cc">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_struct\player.cpp">
+      <Filter>data_struct</Filter>
+    </ClCompile>
+    <ClCompile Include="source\user_logic.cpp">
+      <Filter>source\user</Filter>
+    </ClCompile>
+    <ClCompile Include="source\user.cpp">
+      <Filter>source\user</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\protocol\user.pb.cc">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\luapb\lua_pb.cpp">
+      <Filter>public\luapb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\luapb\proto_importer.cpp">
+      <Filter>public\luapb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_struct\hero.cpp">
+      <Filter>data_struct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_struct\weapon.cpp">
+      <Filter>data_struct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_struct\item.cpp">
+      <Filter>data_struct</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{9831dbbf-fec6-4fe6-9ee9-09cca08ae8ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{140f1741-261f-416a-891b-d93ad5f93dc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structure">
+      <UniqueIdentifier>{8ff1285a-2b09-4785-bf7a-106fe2fe8eaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public">
+      <UniqueIdentifier>{b64c0e13-166d-4f03-9714-d1a6fd0e2d00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data_struct">
+      <UniqueIdentifier>{2dd0ae6f-df81-4a32-86ba-844568aba5e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\user">
+      <UniqueIdentifier>{7d15a05e-2cfd-4a8c-b7db-5f90dbf8c4ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\luapb">
+      <UniqueIdentifier>{9fa708f9-61bc-4a02-9b29-b2004ccae15c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\hero">
+      <UniqueIdentifier>{2dc96d25-bdff-41d9-b891-edce1600a273}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\public\event_interface.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\util.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game_server.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\message_handler.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\db_manager.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\client.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\protocol\server_rpc.pb.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_struct\player.h">
+      <Filter>data_struct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\data_interface.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="source\user_logic.h">
+      <Filter>source\user</Filter>
+    </ClInclude>
+    <ClInclude Include="source\user.h">
+      <Filter>source\user</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\protocol\user.pb.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\luapb\lua_pb.h">
+      <Filter>public\luapb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\luapb\proto_importer.h">
+      <Filter>public\luapb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_struct\hero.h">
+      <Filter>data_struct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_struct\weapon.h">
+      <Filter>data_struct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_struct\item.h">
+      <Filter>data_struct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_struct\box.h">
+      <Filter>data_struct</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
